@@ -24,15 +24,21 @@
      BARRE DE NAVIGATION
 ========================= -->
 
+<!-- =========================================
+     HEADER
+========================================= -->
+
 <header class="header">
 
     <div class="container nav-container">
 
         <a href="#accueil" class="logo-area">
 
-            <img src="images/logo.png"
-                 alt="Logo Espoir & Dignité"
-                 class="logo">
+            <img
+                src="images/logo.png"
+                alt="Logo Espoir & Dignité"
+                class="logo"
+            >
 
             <div class="brand">
                 <strong>ESPOIR & DIGNITÉ</strong>
@@ -41,23 +47,37 @@
 
         </a>
 
-        <button class="menu-toggle"
-                id="menuToggle"
-                aria-label="Ouvrir le menu">
-            ☰
+
+        <button
+            class="menu-toggle"
+            id="menuToggle"
+            aria-label="Ouvrir le menu"
+            aria-expanded="false"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
         </button>
+
 
         <nav id="navMenu">
 
             <a href="#accueil">Accueil</a>
+
             <a href="#mission">Notre mission</a>
+
             <a href="#actions">Nos actions</a>
+
             <a href="#impact">Notre impact</a>
+
             <a href="#directrice">La directrice</a>
+
             <a href="#transparence">Transparence</a>
 
-            <a href="#don"
-               class="nav-donate">
+            <a
+                href="#don"
+                class="nav-donate"
+            >
                 Faire un don
             </a>
 
@@ -68,50 +88,198 @@
 </header>
 
 
-<main>
 
-<!-- =========================
-     HERO
-========================= -->
+<!-- =========================================
+     HERO — ACCUEIL
+========================================= -->
 
 <section id="accueil" class="hero">
 
+    <div class="hero-image"></div>
+
     <div class="hero-overlay"></div>
 
-    <div class="container hero-content">
 
-        <span class="eyebrow">
-            AGIR • PROTÉGER • AUTONOMISER
-        </span>
+    <div class="container hero-container">
 
-        <h1>
-            Redonner de l'espoir,
-            <span>reconstruire des vies.</span>
-        </h1>
+        <div class="hero-content reveal">
 
-        <p>
-            Nous accompagnons les veuves et les enfants vulnérables
-            en leur offrant une aide concrète, un accès à l'éducation
-            et les moyens de construire un avenir plus stable.
-        </p>
+            <div class="hero-tag">
 
-        <div class="hero-buttons">
+                <span class="hero-tag-dot"></span>
 
-            <a href="#don" class="btn btn-primary">
-                Soutenir notre mission
-            </a>
+                AGIR • PROTÉGER • AUTONOMISER
 
-            <a href="#mission" class="btn btn-light">
-                Découvrir notre action
-            </a>
+            </div>
+
+
+            <h1>
+
+                Redonner de l'espoir,
+                <span>reconstruire des vies.</span>
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                Nous accompagnons les veuves et les enfants
+                vulnérables en leur offrant une aide concrète,
+                l'accès à l'éducation et les moyens de construire
+                un avenir plus stable.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <a
+                    href="#don"
+                    class="btn btn-primary hero-btn"
+                >
+                    Soutenir notre mission
+
+                    <span class="btn-arrow">→</span>
+
+                </a>
+
+
+                <a
+                    href="#mission"
+                    class="btn btn-outline"
+                >
+                    Découvrir notre mission
+                </a>
+
+            </div>
+
+
+            <div class="hero-trust">
+
+                <div class="trust-icon">
+                    ✓
+                </div>
+
+                <div>
+                    <strong>
+                        Une action fondée sur la dignité
+                    </strong>
+
+                    <span>
+                        Protéger aujourd'hui. Construire demain.
+                    </span>
+                </div>
+
+            </div>
 
         </div>
 
-        <div class="hero-note">
-            Projet pilote • Budget prévisionnel : 30 000 €
+
+
+        <!-- =================================
+             CARTE IMPACT
+        ================================= -->
+
+        <div class="hero-impact-card reveal reveal-delay">
+
+            <div class="impact-card-top">
+
+                <span>
+                    NOTRE PREMIÈRE CAMPAGNE
+                </span>
+
+                <div class="impact-status">
+                    <span></span>
+                    Projet pilote
+                </div>
+
+            </div>
+
+
+            <div class="impact-card-main">
+
+                <strong>
+                    30 000 €
+                </strong>
+
+                <p>
+                    Budget prévisionnel
+                </p>
+
+            </div>
+
+
+            <div class="impact-mini-grid">
+
+                <div>
+
+                    <strong>
+                        50
+                    </strong>
+
+                    <span>
+                        Veuves
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        75
+                    </strong>
+
+                    <span>
+                        Enfants
+                    </span>
+
+                </div>
+
+
+                <div>
+
+                    <strong>
+                        6
+                    </strong>
+
+                    <span>
+                        Mois
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <a
+                href="#transparence"
+                class="impact-link"
+            >
+                Découvrir le projet
+                <span>→</span>
+            </a>
+
         </div>
 
     </div>
+
+
+    <!-- INDICATEUR SCROLL -->
+
+    <a
+        href="#mission"
+        class="scroll-indicator"
+        aria-label="Découvrir la suite"
+    >
+
+        <span>
+            Découvrir
+        </span>
+
+        <div class="scroll-line"></div>
+
+    </a>
 
 </section>
 
