@@ -1,1067 +1,2150 @@
+```javascript
 /* =========================================================
-   ESPOIR & DIGNITÉ — SCRIPT MULTILINGUE
-   Français / Suomi / English
-   Compatible avec l'index.html fourni
+   ESPOIR & DIGNITÉ
+   SCRIPT PRINCIPAL — PARTIE 1/2
    ========================================================= */
 
-(function () {
+document.addEventListener("DOMContentLoaded", () => {
+
     "use strict";
 
-    const translations = {
-        fi: {
+    /* =====================================================
+       VARIABLES
+    ===================================================== */
 
-            /* =========================
-               HEADER / NAVIGATION
-            ========================= */
+    const body = document.body;
+    const navMenu = document.getElementById("navMenu");
+    const menuToggle = document.getElementById("menuToggle");
+    const backToTop = document.getElementById("backToTop");
 
-            "Logo Espoir & Dignité": "Espoir & Dignité -logo",
-            "Veuves & Enfants": "Lesket & lapset",
-            "Ouvrir le menu": "Avaa valikko",
-            "Accueil": "Etusivu",
-            "Notre mission": "Tehtävämme",
-            "Nos actions": "Toimintamme",
-            "Notre impact": "Vaikutuksemme",
-            "La directrice": "Johtaja",
-            "Transparence": "Avoimuus",
-            "Faire un don": "Tee lahjoitus",
-            "Choisir la langue": "Valitse kieli",
-            "Français": "Français",
-            "Suomi": "Suomi",
-            "English": "English",
+    /* =====================================================
+       MENU MOBILE
+    ===================================================== */
 
-            /* =========================
-               HERO
-            ========================= */
+    if (menuToggle && navMenu) {
 
-            "AGIR • PROTÉGER • AUTONOMISER":
-                "TOIMI • SUOJAA • VAHVISTA",
+        menuToggle.addEventListener("click", () => {
 
-            "Redonner de l'espoir,":
-                "Antaa toivoa,",
+            const isOpen = navMenu.classList.toggle("active");
 
-            "reconstruire des vies.":
-                "rakentaa elämää uudelleen.",
+            menuToggle.classList.toggle("active", isOpen);
 
-            "Nous accompagnons les veuves et les enfants vulnérables en leur offrant une aide concrète, l'accès à l'éducation et les moyens de construire un avenir plus stable.":
-                "Tuemme leskiä ja haavoittuvassa asemassa olevia lapsia tarjoamalla konkreettista apua, pääsyn koulutukseen ja mahdollisuuksia rakentaa vakaampaa tulevaisuutta.",
+            menuToggle.setAttribute(
+                "aria-expanded",
+                isOpen ? "true" : "false"
+            );
 
-            "Soutenir notre mission":
-                "Tue tehtäväämme",
+            body.classList.toggle("menu-open", isOpen);
 
-            "Découvrir notre mission":
-                "Tutustu tehtäväämme",
+        });
 
-            "Une action fondée sur la dignité":
-                "Toimintamme perustuu ihmisarvoon",
+    }
 
-            "Protéger aujourd'hui. Construire demain.":
-                "Suojella tänään. Rakentaa huomista.",
 
-            /* =========================
-               PREMIÈRE CAMPAGNE
-            ========================= */
+    /* =====================================================
+       FERMER LE MENU APRÈS UN CLIC
+    ===================================================== */
 
-            "NOTRE PREMIÈRE CAMPAGNE":
-                "ENSIMMÄINEN KAMPANJAMME",
+    if (navMenu) {
 
-            "Des objectifs concrets,":
-                "Konkreettisia tavoitteita,",
+        const menuLinks = navMenu.querySelectorAll("a");
 
-            "un impact mesurable.":
-                "mitattavaa vaikutusta.",
+        menuLinks.forEach(link => {
 
-            "Notre première campagne a pour ambition d'apporter un soutien concret aux veuves et aux enfants vulnérables pendant une période initiale de six mois.":
-                "Ensimmäisen kampanjamme tavoitteena on tarjota konkreettista tukea leskille ja haavoittuvassa asemassa oleville lapsille kuuden kuukauden alkujakson aikana.",
+            link.addEventListener("click", () => {
 
-            "Veuves":
-                "Lesket",
+                navMenu.classList.remove("active");
 
-            "Objectif d'accompagnement au cours de la première campagne.":
-                "Ensimmäisen kampanjan aikana tuettavien leskien tavoitemäärä.",
-
-            "Enfants":
-                "Lapset",
-
-            "Objectif de soutien à travers l'éducation et l'aide essentielle.":
-                "Koulutuksen ja perustavan avun kautta tuettavien lasten tavoitemäärä.",
-
-            "Mois":
-                "Kuukautta",
-
-            "Durée initiale prévue pour cette campagne pilote.":
-                "Tälle pilottikampanjalle suunniteltu alkuperäinen kesto.",
-
-            "Budget":
-                "Budjetti",
-
-            "Budget prévisionnel destiné à l'ensemble de la campagne.":
-                "Koko kampanjalle suunniteltu budjetti.",
-
-            "À propos de ces chiffres:":
-                "Näistä luvuista:",
-
-            "À propos de ces chiffres :":
-                "Näistä luvuista:",
-
-            "il s'agit d'objectifs prévisionnels pour la campagne et non de résultats déjà réalisés.":
-                "Kyseessä ovat kampanjan ennakoidut tavoitteet, eivät jo saavutetut tulokset.",
-
-            "Projet pilote":
-                "Pilottihanke",
-
-            "Budget prévisionnel":
-                "Ennakoitu budjetti",
-
-            "Découvrir le projet":
-                "Tutustu hankkeeseen",
-
-            "Découvrir":
-                "Tutustu",
-
-            "veuves accompagnées":
-                "tuetut lesket",
-
-            "enfants vulnérables":
-                "haavoittuvassa asemassa olevat lapset",
-
-            "mois de programme":
-                "ohjelmakuukautta",
-
-            "budget prévisionnel":
-                "ennakoitu budjetti",
-
-            /* =========================
-               MISSION
-            ========================= */
-
-            "NOTRE MISSION":
-                "TEHTÄVÄMME",
-
-            "Parce qu'une perte ne devrait pas condamner une famille.":
-                "Menetyksen ei pitäisi tuomita perhettä köyhyyteen.",
-
-            "Dans de nombreuses communautés défavorisées, la perte d'un conjoint ou d'un parent peut faire basculer toute une famille dans la précarité.":
-                "Monissa heikommassa asemassa olevissa yhteisöissä puolison tai vanhemman menetys voi ajaa koko perheen vaikeaan taloudelliseen tilanteeseen.",
-
-            "Espoir & Dignité agit auprès des veuves et des enfants vulnérables afin de répondre aux besoins essentiels tout en construisant des solutions durables.":
-                "Espoir & Dignité tukee leskiä ja haavoittuvassa asemassa olevia lapsia vastaamalla perustarpeisiin ja rakentamalla samalla kestäviä ratkaisuja.",
-
-            "Notre approche repose sur quatre principes:":
-                "Toimintamme perustuu neljään periaatteeseen:",
-
-            "Notre approche repose sur quatre principes :":
-                "Toimintamme perustuu neljään periaatteeseen:",
-
-            "protéger, accompagner, autonomiser et rendre compte.":
-                "suojella, tukea, vahvistaa itsenäisyyttä ja toimia vastuullisesti.",
-
-            /* =========================
-               ACTIONS
-            ========================= */
-
-            "NOS ACTIONS":
-                "TOIMINTAMME",
-
-            "Une aide concrète, pensée pour durer.":
-                "Konkreettista ja kestävää apua.",
-
-            "Notre programme associe assistance immédiate et accompagnement vers l'autonomie.":
-                "Ohjelmamme yhdistää välittömän avun ja tuen kohti itsenäisyyttä.",
-
-            "Aide alimentaire":
-                "Ruoka-apu",
-
-            "Distribution de paniers alimentaires aux familles identifiées comme particulièrement vulnérables.":
-                "Ruokapakettien jakaminen erityisen haavoittuvassa asemassa oleville perheille.",
-
-            "Soutenir cette action →":
-                "Tue tätä toimintaa →",
-
-            "Éducation":
-                "Koulutus",
-
-            "Fournitures scolaires et soutien à la scolarisation des enfants orphelins et vulnérables.":
-                "Koulutarvikkeet ja tuki orpojen sekä haavoittuvassa asemassa olevien lasten koulunkäyntiin.",
-
-            "Autonomisation":
-                "Itsenäistymisen tukeminen",
-
-            "Formation et soutien au lancement de petites activités génératrices de revenus pour les veuves.":
-                "Koulutus ja tuki leskien pienimuotoisten tulonhankintatoimien käynnistämiseen.",
-
-            "Protection des enfants":
-                "Lasten suojelu",
-
-            "Identification des situations vulnérables et orientation vers les structures compétentes.":
-                "Haavoittuvien tilanteiden tunnistaminen ja ohjaaminen asianmukaisten palveluiden piiriin.",
-
-            /* =========================
-               PROJET
-            ========================= */
-
-            "NOTRE PROJET PILOTE":
-                "PILOTTIHANKKEEMME",
-
-            "Espoir pour les Veuves et les Orphelins":
-                "Toivoa leskille ja orvoille",
-
-            "Notre première campagne vise à accompagner des familles vulnérables pendant une période initiale de six mois.":
-                "Ensimmäisen kampanjamme tavoitteena on tukea haavoittuvassa asemassa olevia perheitä kuuden kuukauden alkujakson ajan.",
-
-            "veuves ciblées":
-                "kohderyhmään kuuluvat lesket",
-
-            "enfants accompagnés":
-                "tuettavat lapset",
-
-            "durée initiale":
-                "alkuperäinen kesto",
-
-            "Voir le budget":
-                "Katso budjetti",
-
-            "OBJECTIF DU PROJET":
-                "HANKKEEN TAVOITE",
-
-            "Budget prévisionnel de la première phase du programme.":
-                "Ohjelman ensimmäisen vaiheen ennakoitu budjetti.",
-
-            "Projet pilote — chiffres prévisionnels":
-                "Pilottihanke — ennakoidut luvut",
-
-            /* =========================
-               DIRECTION
-            ========================= */
-
-            "NOTRE DIRECTION":
-                "JOHTOMME",
-
-            "Directrice":
-                "Johtaja",
-
-            "Une conviction : chaque vie mérite une chance.":
-                "Vakaumus: jokainen elämä ansaitsee mahdollisuuden.",
-
-            "À l'origine d'Espoir & Dignité, Ophelie Rollet porte une vision fondée sur la solidarité, la dignité et l'accompagnement des familles les plus vulnérables.":
-                "Espoir & Dignité -järjestön perustajana Ophelie Rollet edistää visiota, joka perustuu solidaarisuuteen, ihmisarvoon ja kaikkein haavoittuvimpien perheiden tukemiseen.",
-
-            "Depuis ses premières expériences dans l'aide aux personnes en difficulté, elle souhaite contribuer concrètement à améliorer les conditions de vie des veuves et des enfants privés de soutien familial.":
-                "Ensimmäisistä kokemuksistaan vaikeuksissa olevien ihmisten auttamisesta lähtien hän on halunnut parantaa konkreettisesti leskien ja perheensä tuen menettäneiden lasten elinoloja.",
-
-            "« Aider une famille aujourd'hui, c'est lui donner une chance de construire son avenir demain. »":
-                "« Perheen auttaminen tänään tarkoittaa sille mahdollisuuden antamista rakentaa huominen. »",
-
-            /* =========================
-               IMPACT
-            ========================= */
-
-            "NOTRE IMPACT":
-                "VAIKUTUKSEMME",
-
-            "Transformer l'aide en possibilités.":
-                "Muuttaa apu mahdollisuuksiksi.",
-
-            "Chaque action est suivie afin de mesurer les résultats et d'améliorer progressivement notre programme.":
-                "Jokaista toimintaa seurataan tulosten mittaamiseksi ja ohjelmamme jatkuvaksi kehittämiseksi.",
-
-            "enfants soutenus":
-                "tuetut lapset",
-
-            "des dépenses suivies":
-                "seuratuista menoista",
-
-            "de suivi initial":
-                "alkuseurantaa",
-
-            /* =========================
-               FIN DE LA PARTIE 1
-            ========================= */
-        },
-
-        en: {
-            /* Les traductions anglaises continuent dans la PARTIE 2 */
-        }
-    };
-
-    /* Le reste du moteur sera ajouté dans la PARTIE 2. */
-         en: {
-
-            /* =========================
-               HEADER / NAVIGATION
-            ========================= */
-
-            "Logo Espoir & Dignité": "Espoir & Dignité logo",
-            "Veuves & Enfants": "Widows & Children",
-            "Ouvrir le menu": "Open menu",
-            "Accueil": "Home",
-            "Notre mission": "Our mission",
-            "Nos actions": "Our actions",
-            "Notre impact": "Our impact",
-            "La directrice": "Director",
-            "Transparence": "Transparency",
-            "Faire un don": "Donate",
-            "Choisir la langue": "Choose language",
-            "Français": "French",
-            "Suomi": "Finnish",
-            "English": "English",
-
-            /* =========================
-               HERO
-            ========================= */
-
-            "AGIR • PROTÉGER • AUTONOMISER":
-                "ACT • PROTECT • EMPOWER",
-
-            "Redonner de l'espoir,":
-                "Restoring hope,",
-
-            "reconstruire des vies.":
-                "rebuilding lives.",
-
-            "Nous accompagnons les veuves et les enfants vulnérables en leur offrant une aide concrète, l'accès à l'éducation et les moyens de construire un avenir plus stable.":
-                "We support widows and vulnerable children by providing practical assistance, access to education and the means to build a more stable future.",
-
-            "Soutenir notre mission":
-                "Support our mission",
-
-            "Découvrir notre mission":
-                "Discover our mission",
-
-            "Une action fondée sur la dignité":
-                "Action grounded in dignity",
-
-            "Protéger aujourd'hui. Construire demain.":
-                "Protect today. Build tomorrow.",
-
-            /* =========================
-               PREMIÈRE CAMPAGNE
-            ========================= */
-
-            "NOTRE PREMIÈRE CAMPAGNE":
-                "OUR FIRST CAMPAIGN",
-
-            "Des objectifs concrets,":
-                "Concrete goals,",
-
-            "un impact mesurable.":
-                "measurable impact.",
-
-            "Notre première campagne a pour ambition d'apporter un soutien concret aux veuves et aux enfants vulnérables pendant une période initiale de six mois.":
-                "Our first campaign aims to provide practical support to widows and vulnerable children during an initial six-month period.",
-
-            "Veuves":
-                "Widows",
-
-            "Objectif d'accompagnement au cours de la première campagne.":
-                "Target number of widows to support during the first campaign.",
-
-            "Enfants":
-                "Children",
-
-            "Objectif de soutien à travers l'éducation et l'aide essentielle.":
-                "Target number of children supported through education and essential assistance.",
-
-            "Mois":
-                "Months",
-
-            "Durée initiale prévue pour cette campagne pilote.":
-                "Initial planned duration of this pilot campaign.",
-
-            "Budget":
-                "Budget",
-
-            "Budget prévisionnel destiné à l'ensemble de la campagne.":
-                "Projected budget allocated to the entire campaign.",
-
-            "À propos de ces chiffres:":
-                "About these figures:",
-
-            "À propos de ces chiffres :":
-                "About these figures:",
-
-            "il s'agit d'objectifs prévisionnels pour la campagne et non de résultats déjà réalisés.":
-                "These are projected campaign objectives, not results already achieved.",
-
-            "Projet pilote":
-                "Pilot project",
-
-            "Budget prévisionnel":
-                "Projected budget",
-
-            "Découvrir le projet":
-                "Discover the project",
-
-            "Découvrir":
-                "Discover",
-
-            "veuves accompagnées":
-                "widows supported",
-
-            "enfants vulnérables":
-                "vulnerable children",
-
-            "mois de programme":
-                "program months",
-
-            "budget prévisionnel":
-                "projected budget",
-
-            /* =========================
-               MISSION
-            ========================= */
-
-            "NOTRE MISSION":
-                "OUR MISSION",
-
-            "Parce qu'une perte ne devrait pas condamner une famille.":
-                "Because a loss should not condemn a family to hardship.",
-
-            "Dans de nombreuses communautés défavorisées, la perte d'un conjoint ou d'un parent peut faire basculer toute une famille dans la précarité.":
-                "In many disadvantaged communities, the loss of a spouse or parent can push an entire family into poverty.",
-
-            "Espoir & Dignité agit auprès des veuves et des enfants vulnérables afin de répondre aux besoins essentiels tout en construisant des solutions durables.":
-                "Espoir & Dignité supports widows and vulnerable children by meeting essential needs while building sustainable solutions.",
-
-            "Notre approche repose sur quatre principes:":
-                "Our approach is based on four principles:",
-
-            "Notre approche repose sur quatre principes :":
-                "Our approach is based on four principles:",
-
-            "protéger, accompagner, autonomiser et rendre compte.":
-                "protect, support, empower and remain accountable.",
-
-            /* =========================
-               ACTIONS
-            ========================= */
-
-            "NOS ACTIONS":
-                "OUR ACTIONS",
-
-            "Une aide concrète, pensée pour durer.":
-                "Practical support designed to last.",
-
-            "Notre programme associe assistance immédiate et accompagnement vers l'autonomie.":
-                "Our program combines immediate assistance with support towards self-reliance.",
-
-            "Aide alimentaire":
-                "Food assistance",
-
-            "Distribution de paniers alimentaires aux familles identifiées comme particulièrement vulnérables.":
-                "Distribution of food baskets to families identified as particularly vulnerable.",
-
-            "Soutenir cette action →":
-                "Support this action →",
-
-            "Éducation":
-                "Education",
-
-            "Fournitures scolaires et soutien à la scolarisation des enfants orphelins et vulnérables.":
-                "School supplies and support for the education of orphaned and vulnerable children.",
-
-            "Autonomisation":
-                "Empowerment",
-
-            "Formation et soutien au lancement de petites activités génératrices de revenus pour les veuves.":
-                "Training and support to launch small income-generating activities for widows.",
-
-            "Protection des enfants":
-                "Child protection",
-
-            "Identification des situations vulnérables et orientation vers les structures compétentes.":
-                "Identification of vulnerable situations and referral to appropriate services.",
-
-            /* =========================
-               PROJET
-            ========================= */
-
-            "NOTRE PROJET PILOTE":
-                "OUR PILOT PROJECT",
-
-            "Espoir pour les Veuves et les Orphelins":
-                "Hope for Widows and Orphans",
-
-            "Notre première campagne vise à accompagner des familles vulnérables pendant une période initiale de six mois.":
-                "Our first campaign aims to support vulnerable families during an initial six-month period.",
-
-            "veuves ciblées":
-                "targeted widows",
-
-            "enfants accompagnés":
-                "children supported",
-
-            "durée initiale":
-                "initial duration",
-
-            "Voir le budget":
-                "View the budget",
-
-            "OBJECTIF DU PROJET":
-                "PROJECT OBJECTIVE",
-
-            "Budget prévisionnel de la première phase du programme.":
-                "Projected budget for the first phase of the program.",
-
-            "Projet pilote — chiffres prévisionnels":
-                "Pilot project — projected figures",
-
-            /* =========================
-               DIRECTION
-            ========================= */
-
-            "NOTRE DIRECTION":
-                "OUR LEADERSHIP",
-
-            "Directrice":
-                "Director",
-
-            "Une conviction : chaque vie mérite une chance.":
-                "A belief: every life deserves a chance.",
-
-            "À l'origine d'Espoir & Dignité, Ophelie Rollet porte une vision fondée sur la solidarité, la dignité et l'accompagnement des familles les plus vulnérables.":
-                "As the founder of Espoir & Dignité, Ophelie Rollet promotes a vision based on solidarity, dignity and support for the most vulnerable families.",
-
-            "Depuis ses premières expériences dans l'aide aux personnes en difficulté, elle souhaite contribuer concrètement à améliorer les conditions de vie des veuves et des enfants privés de soutien familial.":
-                "Since her first experiences helping people in difficulty, she has sought to make a practical contribution to improving the living conditions of widows and children without family support.",
-
-            "« Aider une famille aujourd'hui, c'est lui donner une chance de construire son avenir demain. »":
-                "“Helping a family today means giving it a chance to build its future tomorrow.”",
-
-            /* =========================
-               IMPACT
-            ========================= */
-
-            "NOTRE IMPACT":
-                "OUR IMPACT",
-
-            "Transformer l'aide en possibilités.":
-                "Turning assistance into opportunities.",
-
-            "Chaque action est suivie afin de mesurer les résultats et d'améliorer progressivement notre programme.":
-                "Every action is monitored to measure results and progressively improve our program.",
-
-            "enfants soutenus":
-                "children supported",
-
-            "des dépenses suivies":
-                "of expenses monitored",
-
-            "de suivi initial":
-                "of initial monitoring",
-
-            /* =========================
-               TRANSPARENCE FINANCIÈRE
-            ========================= */
-
-            "TRANSPARENCE FINANCIÈRE":
-                "FINANCIAL TRANSPARENCY",
-
-            "Où va":
-                "Where does",
-
-            "votre don ?":
-                "your donation go?",
-
-            "Chaque contribution doit servir une action concrète. Nous présentons ici la répartition prévisionnelle du budget de notre première campagne.":
-                "Every contribution should support concrete action. Here we present the projected budget allocation for our first campaign.",
-
-            "BUDGET TOTAL PRÉVISIONNEL":
-                "PROJECTED TOTAL BUDGET",
-
-            "Notre engagement":
-                "Our commitment",
-
-            "Nous souhaitons publier régulièrement l'évolution des dépenses et des actions réalisées afin que chaque donateur puisse comprendre l'utilisation des fonds.":
-                "We aim to regularly publish the progress of expenses and completed activities so that every donor can understand how the funds are used.",
-
-            "Aide alimentaire":
-                "Food assistance",
-
-            "Soutien essentiel aux familles":
-                "Essential family support",
-
-            "Autonomisation des veuves":
-                "Widow empowerment",
-
-            "Activités génératrices de revenus":
-                "Income-generating activities",
-
-            "Éducation & fournitures":
-                "Education & supplies",
-
-            "Matériel scolaire et accompagnement":
-                "School materials and support",
-
-            "Soutien aux structures locales":
-                "Support for local organizations",
-
-            "Écoles et partenaires de terrain":
-                "Schools and field partners",
-
-            "Administration & logistique":
-                "Administration & logistics",
-
-            "Organisation et suivi du projet":
-                "Project organization and monitoring",
-
-            "Communication":
-                "Communication",
-
-            "Sensibilisation et information":
-                "Awareness and information",
-
-            "TOTAL":
-                "TOTAL",
-
-            "Cette répartition correspond au budget prévisionnel de la première campagne. Les montants pourront évoluer selon les besoins identifiés sur le terrain et les financements effectivement recueillis.":
-                "This allocation corresponds to the projected budget for the first campaign. Amounts may change according to needs identified in the field and funding actually raised.",
-
-            /* =========================
-               DON
-            ========================= */
-
-            "AGIR AVEC NOUS":
-                "ACT WITH US",
-
-            "Votre soutien peut devenir":
-                "Your support can become",
-
-            "une nouvelle chance.":
-                "a new chance.",
-
-            "Chaque contribution participe au financement de nos programmes d'aide, d'éducation et d'autonomisation.":
-                "Every contribution helps fund our assistance, education and empowerment programs.",
-
-            "Je souhaite soutenir le projet":
-                "I want to support the project",
-
-            "Les modalités réelles de don seront publiées lorsque le dispositif de collecte sera officiellement configuré.":
-                "The actual donation methods will be published once the collection system has been officially configured.",
-
-            /* =========================
-               CONTACT
-            ========================= */
-
-            "CONTACT":
-                "CONTACT",
-
-            "Une question sur notre mission ?":
-                "A question about our mission?",
-
-            "Vous souhaitez devenir partenaire, bénévole ou soutenir notre programme ?":
-                "Would you like to become a partner, volunteer or support our program?",
-
-            "Nom":
-                "Name",
-
-            "Votre nom":
-                "Your name",
-
-            "Adresse e-mail":
-                "Email address",
-
-            "Votre message":
-                "Your message",
-
-            "Votre message...":
-                "Your message...",
-
-            "Envoyer le message":
-                "Send message",
-
-            /* =========================
-               FOOTER
-            ========================= */
-
-            "Navigation":
-                "Navigation",
-
-            "Nous soutenir":
-                "Support us",
-
-            "Devenir partenaire":
-                "Become a partner",
-
-            "Protéger. Accompagner. Autonomiser.":
-                "Protect. Support. Empower.",
-
-            "© 2026 Espoir & Dignité — Tous droits réservés.":
-                "© 2026 Espoir & Dignité — All rights reserved.",
-
-            "Projet de présentation — informations budgétaires prévisionnelles.":
-                "Presentation project — projected budget information.",
-
-            /* =========================
-               ACCESSIBILITÉ
-            ========================= */
-
-            "Retour en haut":
-                "Back to top",
-
-            "Découvrir la suite":
-                "Discover more"
-        }
-
-    };
-
-
-    /* =========================================================
-       MOTEUR DE TRADUCTION
-       ========================================================= */
-
-    const normalize = (value) =>
-        value
-            .replace(/\s+/g, " ")
-            .replace(/\u00A0/g, " ")
-            .trim();
-
-
-    const originalTexts = new WeakMap();
-    const originalAttributes = new WeakMap();
-
-
-    /* =========================================================
-       TRADUCTION DES TEXTES
-       ========================================================= */
-
-    function translateTextNodes(lang) {
-
-        const walker = document.createTreeWalker(
-            document.body,
-            NodeFilter.SHOW_TEXT,
-            {
-                acceptNode(node) {
-
-                    if (!node.parentElement) {
-                        return NodeFilter.FILTER_REJECT;
-                    }
-
-                    const tag = node.parentElement.tagName;
-
-                    if (
-                        tag === "SCRIPT" ||
-                        tag === "STYLE" ||
-                        tag === "NOSCRIPT"
-                    ) {
-                        return NodeFilter.FILTER_REJECT;
-                    }
-
-                    return NodeFilter.FILTER_ACCEPT;
+                if (menuToggle) {
+                    menuToggle.classList.remove("active");
+                    menuToggle.setAttribute(
+                        "aria-expanded",
+                        "false"
+                    );
                 }
+
+                body.classList.remove("menu-open");
+
+            });
+
+        });
+
+    }
+
+
+    /* =====================================================
+       DÉFILEMENT FLUIDE
+    ===================================================== */
+
+    document.querySelectorAll('a[href^="#"]').forEach(link => {
+
+        link.addEventListener("click", function (event) {
+
+            const targetId = this.getAttribute("href");
+
+            if (!targetId || targetId === "#") {
+                return;
+            }
+
+            const target = document.querySelector(targetId);
+
+            if (!target) {
+                return;
+            }
+
+            event.preventDefault();
+
+            const header = document.querySelector(".header");
+
+            const headerHeight = header
+                ? header.offsetHeight
+                : 0;
+
+            const targetPosition =
+                target.getBoundingClientRect().top +
+                window.pageYOffset -
+                headerHeight;
+
+            window.scrollTo({
+                top: targetPosition,
+                behavior: "smooth"
+            });
+
+        });
+
+    });
+
+
+    /* =====================================================
+       BOUTON RETOUR EN HAUT
+    ===================================================== */
+
+    if (backToTop) {
+
+        const updateBackToTop = () => {
+
+            if (window.scrollY > 500) {
+                backToTop.classList.add("visible");
+            } else {
+                backToTop.classList.remove("visible");
+            }
+
+        };
+
+        window.addEventListener(
+            "scroll",
+            updateBackToTop,
+            { passive: true }
+        );
+
+        updateBackToTop();
+
+
+        backToTop.addEventListener("click", () => {
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        });
+
+    }
+
+
+    /* =====================================================
+       ANIMATIONS AU DÉFILEMENT
+    ===================================================== */
+
+    const revealElements = document.querySelectorAll(
+        ".reveal, .scroll-reveal"
+    );
+
+
+    if ("IntersectionObserver" in window) {
+
+        const revealObserver = new IntersectionObserver(
+            (entries, observer) => {
+
+                entries.forEach(entry => {
+
+                    if (!entry.isIntersecting) {
+                        return;
+                    }
+
+                    entry.target.classList.add("visible");
+
+                    observer.unobserve(entry.target);
+
+                });
+
+            },
+            {
+                threshold: 0.12,
+                rootMargin: "0px 0px -40px 0px"
             }
         );
 
 
-        const nodes = [];
+        revealElements.forEach(element => {
 
-        let node;
-
-        while ((node = walker.nextNode())) {
-            nodes.push(node);
-        }
-
-
-        nodes.forEach((textNode) => {
-
-            if (!originalTexts.has(textNode)) {
-                originalTexts.set(
-                    textNode,
-                    textNode.nodeValue
-                );
-            }
-
-
-            const original = normalize(
-                originalTexts.get(textNode)
-            );
-
-
-            if (!original) {
-                return;
-            }
-
-
-            if (lang === "fr") {
-
-                textNode.nodeValue =
-                    originalTexts.get(textNode);
-
-                return;
-            }
-
-
-            const translated =
-                translations[lang] &&
-                translations[lang][original];
-
-
-            if (translated) {
-
-                const source =
-                    originalTexts.get(textNode);
-
-
-                const leading =
-                    source.match(/^\s*/)?.[0] || "";
-
-
-                const trailing =
-                    source.match(/\s*$/)?.[0] || "";
-
-
-                textNode.nodeValue =
-                    leading +
-                    translated +
-                    trailing;
-            }
+            revealObserver.observe(element);
 
         });
+
+    } else {
+
+        revealElements.forEach(element => {
+
+            element.classList.add("visible");
+
+        });
+
     }
 
 
-    /* =========================================================
-       TRADUCTION DES ATTRIBUTS HTML
-       ========================================================= */
+    /* =====================================================
+       COMPTEURS
+       50 VEUVES / 75 ENFANTS / 6 MOIS
+    ===================================================== */
 
-    function translateAttributes(lang) {
-
-        const elements =
-            document.querySelectorAll(
-                "[aria-label], [title], [alt], [placeholder]"
-            );
+    const counters = document.querySelectorAll(
+        "[data-counter]"
+    );
 
 
-        elements.forEach((element) => {
+    const animateCounter = element => {
 
-            if (!originalAttributes.has(element)) {
+        const target = Number(
+            element.getAttribute("data-counter")
+        );
 
-                originalAttributes.set(
-                    element,
-                    {}
-                );
-            }
-
-
-            [
-                "aria-label",
-                "title",
-                "alt",
-                "placeholder"
-            ].forEach((attribute) => {
-
-                if (!element.hasAttribute(attribute)) {
-                    return;
-                }
-
-
-                const original =
-                    element.getAttribute(attribute);
-
-
-                if (
-                    originalAttributes
-                        .get(element)[attribute] === undefined
-                ) {
-
-                    originalAttributes
-                        .get(element)[attribute] =
-                        original;
-                }
-
-
-                const source =
-                    originalAttributes
-                        .get(element)[attribute];
-
-
-                if (lang === "fr") {
-
-                    element.setAttribute(
-                        attribute,
-                        source
-                    );
-
-                    return;
-                }
-
-
-                const translated =
-                    translations[lang] &&
-                    translations[lang][normalize(source)];
-
-
-                if (translated) {
-
-                    element.setAttribute(
-                        attribute,
-                        translated
-                    );
-                }
-
-            });
-
-        });
-    }
-
-
-    /* =========================================================
-       INTERFACE DES BOUTONS DE LANGUE
-       ========================================================= */
-
-    function updateLanguageUI(lang) {
-
-        document.documentElement.lang = lang;
-
-
-        document
-            .querySelectorAll(".lang-btn")
-            .forEach((button) => {
-
-                const active =
-                    button.dataset.lang === lang;
-
-
-                button.classList.toggle(
-                    "active",
-                    active
-                );
-
-
-                button.setAttribute(
-                    "aria-pressed",
-                    active ? "true" : "false"
-                );
-
-            });
-
-
-        const switcher =
-            document.querySelector(
-                ".language-switcher"
-            );
-
-
-        if (switcher) {
-
-            const labels = {
-
-                fr: "Choisir la langue",
-
-                fi: "Valitse kieli",
-
-                en: "Choose language"
-
-            };
-
-
-            switcher.setAttribute(
-                "aria-label",
-                labels[lang]
-            );
+        if (!Number.isFinite(target)) {
+            return;
         }
 
+        const duration = 1600;
 
-        /* =========================
-           TITRE DE LA PAGE
-        ========================= */
+        const startTime = performance.now();
 
-        const titles = {
 
-            fr:
-                "Espoir & Dignité | Veuves & Enfants",
+        const updateCounter = currentTime => {
 
-            fi:
-                "Espoir & Dignité | Lesket & Lapset",
+            const elapsed = currentTime - startTime;
 
-            en:
-                "Espoir & Dignité | Widows & Children"
+            const progress = Math.min(
+                elapsed / duration,
+                1
+            );
+
+
+            /* Courbe douce */
+            const easedProgress =
+                1 - Math.pow(1 - progress, 3);
+
+
+            const currentValue = Math.floor(
+                target * easedProgress
+            );
+
+
+            element.textContent = currentValue.toLocaleString(
+                "fr-FR"
+            );
+
+
+            if (progress < 1) {
+
+                requestAnimationFrame(updateCounter);
+
+            } else {
+
+                element.textContent =
+                    target.toLocaleString("fr-FR");
+
+            }
 
         };
 
 
-        document.title = titles[lang];
+        requestAnimationFrame(updateCounter);
+
+    };
+
+
+    /* =====================================================
+       OBSERVATEUR DES COMPTEURS
+    ===================================================== */
+
+    if ("IntersectionObserver" in window && counters.length) {
+
+        const counterObserver =
+            new IntersectionObserver(
+                (entries, observer) => {
+
+                    entries.forEach(entry => {
+
+                        if (!entry.isIntersecting) {
+                            return;
+                        }
+
+                        animateCounter(entry.target);
+
+                        observer.unobserve(entry.target);
+
+                    });
+
+                },
+                {
+                    threshold: 0.5
+                }
+            );
+
+
+        counters.forEach(counter => {
+
+            counterObserver.observe(counter);
+
+        });
+
+    } else {
+
+        counters.forEach(counter => {
+
+            animateCounter(counter);
+
+        });
+
     }
 
 
-    /* =========================================================
-       APPLICATION DE LA LANGUE
-       ========================================================= */
+    /* =====================================================
+       BARRES DE PROGRESSION DU BUDGET
+    ===================================================== */
 
-    function applyLanguage(lang) {
+    const progressBars = document.querySelectorAll(
+        "[data-progress]"
+    );
 
-        if (
-            !["fr", "fi", "en"].includes(lang)
-        ) {
 
-            lang = "fr";
+    const animateProgressBar = bar => {
+
+        const progress = Number(
+            bar.getAttribute("data-progress")
+        );
+
+
+        if (!Number.isFinite(progress)) {
+            return;
         }
 
 
-        translateTextNodes(lang);
-
-        translateAttributes(lang);
-
-        updateLanguageUI(lang);
-
-
-        localStorage.setItem(
-            "espoirDigniteLanguage",
-            lang
+        const safeProgress = Math.max(
+            0,
+            Math.min(progress, 100)
         );
+
+
+        /* On part de 0 */
+        bar.style.width = "0%";
+
+
+        /* Petit délai pour permettre
+           l'animation CSS */
+        requestAnimationFrame(() => {
+
+            requestAnimationFrame(() => {
+
+                bar.style.width =
+                    `${safeProgress}%`;
+
+            });
+
+        });
+
+    };
+
+
+    /* =====================================================
+       OBSERVATEUR DES BARRES
+    ===================================================== */
+
+    if (
+        "IntersectionObserver" in window &&
+        progressBars.length
+    ) {
+
+        const progressObserver =
+            new IntersectionObserver(
+                (entries, observer) => {
+
+                    entries.forEach(entry => {
+
+                        if (!entry.isIntersecting) {
+                            return;
+                        }
+
+                        animateProgressBar(
+                            entry.target
+                        );
+
+                        observer.unobserve(
+                            entry.target
+                        );
+
+                    });
+
+                },
+                {
+                    threshold: 0.2
+                }
+            );
+
+
+        progressBars.forEach(bar => {
+
+            progressObserver.observe(bar);
+
+        });
+
+    } else {
+
+        progressBars.forEach(bar => {
+
+            animateProgressBar(bar);
+
+        });
+
     }
 
 
-    /* =========================================================
-       INITIALISATION
-       ========================================================= */
+    /* =====================================================
+       BOUTONS DE DON
+    ===================================================== */
 
-    function init() {
+    const amountButtons =
+        document.querySelectorAll(".amount");
 
-        document
-            .querySelectorAll(".lang-btn")
-            .forEach((button) => {
 
-                button.addEventListener(
-                    "click",
-                    () => {
+    amountButtons.forEach(button => {
 
-                        applyLanguage(
-                            button.dataset.lang
-                        );
+        button.addEventListener("click", () => {
 
-                    }
-                );
+            amountButtons.forEach(item => {
+
+                item.classList.remove("selected");
 
             });
 
 
-        const savedLanguage =
-            localStorage.getItem(
-                "espoirDigniteLanguage"
-            ) || "fr";
+            button.classList.add("selected");
 
 
-        applyLanguage(savedLanguage);
-    }
+            amountButtons.forEach(item => {
+
+                item.setAttribute(
+                    "aria-pressed",
+                    item === button
+                        ? "true"
+                        : "false"
+                );
+
+            });
+
+        });
+
+    });
 
 
-    /* =========================================================
-       DÉMARRAGE
-       ========================================================= */
+    /* =====================================================
+       FORMULAIRE DE CONTACT
+       VERSION STATIQUE — AUCUN BACKEND
+    ===================================================== */
 
-    if (
-        document.readyState === "loading"
-    ) {
+    const contactForm =
+        document.querySelector(".contact-form");
 
-        document.addEventListener(
-            "DOMContentLoaded",
-            init
+
+    if (contactForm) {
+
+        contactForm.addEventListener(
+            "submit",
+            event => {
+
+                event.preventDefault();
+
+
+                const nameInput =
+                    document.getElementById("name");
+
+                const emailInput =
+                    document.getElementById("email");
+
+                const messageInput =
+                    document.getElementById("message");
+
+
+                const name =
+                    nameInput
+                        ? nameInput.value.trim()
+                        : "";
+
+                const email =
+                    emailInput
+                        ? emailInput.value.trim()
+                        : "";
+
+                const message =
+                    messageInput
+                        ? messageInput.value.trim()
+                        : "";
+
+
+                if (
+                    !name ||
+                    !email ||
+                    !message
+                ) {
+
+                    alert(
+                        "Veuillez remplir tous les champs avant d'envoyer votre message."
+                    );
+
+                    return;
+
+                }
+
+
+                /* Vérification simple de l'e-mail */
+                const emailPattern =
+                    /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+
+                if (!emailPattern.test(email)) {
+
+                    alert(
+                        "Veuillez saisir une adresse e-mail valide."
+                    );
+
+                    return;
+
+                }
+
+
+                /*
+                 * Le site est actuellement statique.
+                 * Aucun message n'est envoyé automatiquement.
+                 *
+                 * On prépare ici le comportement propre
+                 * jusqu'à la mise en place éventuelle
+                 * d'un véritable service d'envoi.
+                 */
+
+                alert(
+                    "Merci pour votre message, " +
+                    name +
+                    ". Votre demande a bien été prise en compte."
+                );
+
+
+                contactForm.reset();
+
+            }
         );
 
-    } else {
-
-        init();
     }
 
 
-})();
+    /* =====================================================
+       FIN PARTIE 1
+       ===================================================== */
+
+});
+```
+/* =========================================================
+   ESPOIR & DIGNITÉ
+   SCRIPT PRINCIPAL — PARTIE 2/2
+   SYSTÈME MULTILINGUE FR / FI / EN
+   ========================================================= */
+
+
+/*
+ * IMPORTANT
+ * ---------------------------------------------------------
+ * Cette partie complète la PARTIE 1/2.
+ * Ne pas supprimer la PARTIE 1.
+ */
+
+
+/* =========================================================
+   SYSTÈME MULTILINGUE
+   ========================================================= */
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    "use strict";
+
+
+    /* =====================================================
+       CONFIGURATION DES LANGUES
+    ===================================================== */
+
+    const supportedLanguages = ["fr", "fi", "en"];
+
+    const defaultLanguage = "fr";
+
+    let currentLanguage =
+        localStorage.getItem("espoirDigniteLanguage") ||
+        defaultLanguage;
+
+
+    if (!supportedLanguages.includes(currentLanguage)) {
+        currentLanguage = defaultLanguage;
+    }
+
+
+    /* =====================================================
+       TRADUCTIONS
+    ===================================================== */
+
+    const translations = {
+
+        fr: {
+
+            "nav.home": "Accueil",
+            "nav.mission": "Notre mission",
+            "nav.actions": "Nos actions",
+            "nav.impact": "Notre impact",
+            "nav.director": "La directrice",
+            "nav.transparency": "Transparence",
+            "nav.donate": "Faire un don",
+
+            "hero.tag": "AGIR • PROTÉGER • AUTONOMISER",
+            "hero.title": "Redonner de l'espoir,",
+            "hero.titleHighlight": "reconstruire des vies.",
+            "hero.description": "Nous accompagnons les veuves et les enfants vulnérables en leur offrant une aide concrète, l'accès à l'éducation et les moyens de construire un avenir plus stable.",
+            "hero.support": "Soutenir notre mission",
+            "hero.mission": "Découvrir notre mission",
+            "hero.trustTitle": "Une action fondée sur la dignité",
+            "hero.trustText": "Protéger aujourd'hui. Construire demain.",
+            "hero.campaign": "NOTRE PREMIÈRE CAMPAGNE",
+            "hero.project": "Projet pilote",
+            "hero.budget": "Budget prévisionnel",
+            "hero.widows": "Veuves",
+            "hero.children": "Enfants",
+            "hero.months": "Mois",
+            "hero.discover": "Découvrir le projet",
+            "hero.scroll": "Découvrir",
+
+            "stats.widows": "veuves accompagnées",
+            "stats.children": "enfants vulnérables",
+            "stats.program": "mois de programme",
+            "stats.budget": "budget prévisionnel",
+
+            "mission.label": "NOTRE MISSION",
+            "mission.title": "Parce qu'une perte ne devrait pas condamner une famille.",
+            "mission.p1": "Dans de nombreuses communautés défavorisées, la perte d'un conjoint ou d'un parent peut faire basculer toute une famille dans la précarité.",
+            "mission.p2": "Espoir & Dignité agit auprès des veuves et des enfants vulnérables afin de répondre aux besoins essentiels tout en construisant des solutions durables.",
+            "mission.p3": "Notre approche repose sur quatre principes :",
+            "mission.principles": "protéger, accompagner, autonomiser et rendre compte.",
+
+            "actions.label": "NOS ACTIONS",
+            "actions.title": "Une aide concrète, pensée pour durer.",
+            "actions.description": "Notre programme associe assistance immédiate et accompagnement vers l'autonomie.",
+
+            "actions.food.title": "Aide alimentaire",
+            "actions.food.text": "Distribution de paniers alimentaires aux familles identifiées comme particulièrement vulnérables.",
+
+            "actions.education.title": "Éducation",
+            "actions.education.text": "Fournitures scolaires et soutien à la scolarisation des enfants orphelins et vulnérables.",
+
+            "actions.empowerment.title": "Autonomisation",
+            "actions.empowerment.text": "Formation et soutien au lancement de petites activités génératrices de revenus pour les veuves.",
+
+            "actions.protection.title": "Protection des enfants",
+            "actions.protection.text": "Identification des situations vulnérables et orientation vers les structures compétentes.",
+
+            "actions.support": "Soutenir cette action →",
+
+            "project.label": "NOTRE PROJET PILOTE",
+            "project.title": "Espoir pour les Veuves et les Orphelins",
+            "project.description": "Notre première campagne vise à accompagner des familles vulnérables pendant une période initiale de six mois.",
+            "project.widows": "veuves ciblées",
+            "project.children": "enfants accompagnés",
+            "project.duration": "durée initiale",
+            "project.budgetButton": "Voir le budget",
+            "project.objective": "OBJECTIF DU PROJET",
+            "project.budgetDescription": "Budget prévisionnel de la première phase du programme.",
+            "project.pilot": "Projet pilote — chiffres prévisionnels",
+
+            "director.label": "NOTRE DIRECTION",
+            "director.title": "Ophelie Rollet",
+            "director.subtitle": "Une conviction : chaque vie mérite une chance.",
+            "director.p1": "À l'origine d'Espoir & Dignité, Ophelie Rollet porte une vision fondée sur la solidarité, la dignité et l'accompagnement des familles les plus vulnérables.",
+            "director.p2": "Depuis ses premières expériences dans l'aide aux personnes en difficulté, elle souhaite contribuer concrètement à améliorer les conditions de vie des veuves et des enfants privés de soutien familial.",
+            "director.quote": "« Aider une famille aujourd'hui, c'est lui donner une chance de construire son avenir demain. »",
+            "director.role": "Directrice",
+
+            "impact.label": "NOTRE IMPACT",
+            "impact.title": "Transformer l'aide en possibilités.",
+            "impact.description": "Chaque action est suivie afin de mesurer les résultats et d'améliorer progressivement notre programme.",
+            "impact.widows": "veuves accompagnées",
+            "impact.children": "enfants soutenus",
+            "impact.expenses": "des dépenses suivies",
+            "impact.followup": "de suivi initial",
+
+            "transparency.label": "TRANSPARENCE FINANCIÈRE",
+            "transparency.title": "Où va",
+            "transparency.titleHighlight": "votre don ?",
+            "transparency.description": "Chaque contribution doit servir une action concrète. Nous présentons ici la répartition prévisionnelle du budget de notre première campagne.",
+            "transparency.total": "BUDGET TOTAL PRÉVISIONNEL",
+            "transparency.commitment": "Notre engagement",
+            "transparency.commitmentText": "Nous souhaitons publier régulièrement l'évolution des dépenses et des actions réalisées afin que chaque donateur puisse comprendre l'utilisation des fonds.",
+
+            "transparency.food": "Aide alimentaire",
+            "transparency.foodDescription": "Soutien essentiel aux familles",
+
+            "transparency.empowerment": "Autonomisation des veuves",
+            "transparency.empowermentDescription": "Activités génératrices de revenus",
+
+            "transparency.education": "Éducation & fournitures",
+            "transparency.educationDescription": "Matériel scolaire et accompagnement",
+
+            "transparency.local": "Soutien aux structures locales",
+            "transparency.localDescription": "Écoles et partenaires de terrain",
+
+            "transparency.logistics": "Administration & logistique",
+            "transparency.logisticsDescription": "Organisation et suivi du projet",
+
+            "transparency.communication": "Communication",
+            "transparency.communicationDescription": "Sensibilisation et information",
+
+            "transparency.totalLabel": "TOTAL",
+
+            "transparency.note": "Cette répartition correspond au budget prévisionnel de la première campagne. Les montants pourront évoluer selon les besoins identifiés sur le terrain et les financements effectivement recueillis.",
+
+            "don.label": "AGIR AVEC NOUS",
+            "don.title": "Votre soutien peut devenir une nouvelle chance.",
+            "don.description": "Chaque contribution participe au financement de nos programmes d'aide, d'éducation et d'autonomisation.",
+            "don.button": "Je souhaite soutenir le projet",
+            "don.note": "Les modalités réelles de don seront publiées lorsque le dispositif de collecte sera officiellement configuré.",
+
+            "contact.label": "CONTACT",
+            "contact.title": "Une question sur notre mission ?",
+            "contact.description": "Vous souhaitez devenir partenaire, bénévole ou soutenir notre programme ?",
+            "contact.name": "Nom",
+            "contact.namePlaceholder": "Votre nom",
+            "contact.email": "Adresse e-mail",
+            "contact.emailPlaceholder": "vous@example.com",
+            "contact.message": "Votre message",
+            "contact.messagePlaceholder": "Votre message...",
+            "contact.send": "Envoyer le message",
+
+            "footer.tagline": "Protéger. Accompagner. Autonomiser.",
+            "footer.navigation": "Navigation",
+            "footer.support": "Nous soutenir",
+            "footer.donate": "Faire un don",
+            "footer.partner": "Devenir partenaire",
+            "footer.copyright": "© 2026 Espoir & Dignité — Tous droits réservés.",
+            "footer.disclaimer": "Projet de présentation — informations budgétaires prévisionnelles."
+
+        },
+
+
+        /* =================================================
+           FINNOIS
+           ================================================= */
+
+        fi: {
+
+            "nav.home": "Etusivu",
+            "nav.mission": "Tehtävämme",
+            "nav.actions": "Toimintamme",
+            "nav.impact": "Vaikutuksemme",
+            "nav.director": "Johtaja",
+            "nav.transparency": "Läpinäkyvyys",
+            "nav.donate": "Lahjoita",
+
+            "hero.tag": "TOIMI • SUOJELE • VAHVISTA",
+            "hero.title": "Uutta toivoa,",
+            "hero.titleHighlight": "uusia mahdollisuuksia elämään.",
+            "hero.description": "Tuemme leskiä ja haavoittuvassa asemassa olevia lapsia tarjoamalla konkreettista apua, mahdollisuuksia koulutukseen ja keinoja rakentaa vakaampaa tulevaisuutta.",
+            "hero.support": "Tue tehtäväämme",
+            "hero.mission": "Tutustu tehtäväämme",
+            "hero.trustTitle": "Toimintamme perustuu ihmisarvoon",
+            "hero.trustText": "Suojelemme tänään. Rakennamme huomista.",
+            "hero.campaign": "ENSIMMÄINEN KAMPANJAMME",
+            "hero.project": "Pilottihanke",
+            "hero.budget": "Ennakoitu budjetti",
+            "hero.widows": "Leskiä",
+            "hero.children": "Lapsia",
+            "hero.months": "Kuukautta",
+            "hero.discover": "Tutustu hankkeeseen",
+            "hero.scroll": "Tutustu",
+
+            "stats.widows": "tuettavaa leskeä",
+            "stats.children": "haavoittuvassa asemassa olevaa lasta",
+            "stats.program": "ohjelmakuukautta",
+            "stats.budget": "ennakoitu budjetti",
+
+            "mission.label": "TEHTÄVÄMME",
+            "mission.title": "Menetys ei saisi tuomita perhettä köyhyyteen.",
+            "mission.p1": "Monissa heikommassa asemassa olevissa yhteisöissä puolison tai vanhemman menetys voi johtaa koko perheen taloudelliseen ahdinkoon.",
+            "mission.p2": "Espoir & Dignité tukee leskiä ja haavoittuvassa asemassa olevia lapsia vastaamalla perustarpeisiin ja rakentamalla samalla kestäviä ratkaisuja.",
+            "mission.p3": "Toimintamme perustuu neljään periaatteeseen:",
+            "mission.principles": "suojelu, tuki, itsenäistyminen ja vastuullisuus.",
+
+            "actions.label": "TOIMINTAMME",
+            "actions.title": "Konkreettista ja kestävää apua.",
+            "actions.description": "Ohjelmamme yhdistää välittömän avun ja tuen kohti itsenäisempää elämää.",
+
+            "actions.food.title": "Ruoka-apu",
+            "actions.food.text": "Ruokapakettien jakaminen erityisen haavoittuvassa asemassa oleville perheille.",
+
+            "actions.education.title": "Koulutus",
+            "actions.education.text": "Koulutarvikkeita ja tukea orpojen ja haavoittuvassa asemassa olevien lasten koulunkäyntiin.",
+
+            "actions.empowerment.title": "Itsenäistyminen",
+            "actions.empowerment.text": "Koulutusta ja tukea pienimuotoisen tulonhankinnan aloittamiseen leskille.",
+
+            "actions.protection.title": "Lasten suojelu",
+            "actions.protection.text": "Haavoittuvien tilanteiden tunnistaminen ja ohjaaminen asianmukaisten palveluiden piiriin.",
+
+            "actions.support": "Tue tätä toimintaa →",
+
+            "project.label": "PILOTTIHANKKEEMME",
+            "project.title": "Toivoa leskille ja orvoille",
+            "project.description": "Ensimmäisen kampanjamme tavoitteena on tukea haavoittuvassa asemassa olevia perheitä kuuden kuukauden alkujakson ajan.",
+            "project.widows": "tavoiteltua leskeä",
+            "project.children": "tuettavaa lasta",
+            "project.duration": "alkuperäinen kesto",
+            "project.budgetButton": "Katso budjetti",
+            "project.objective": "HANKKEEN TAVOITE",
+            "project.budgetDescription": "Ohjelman ensimmäisen vaiheen ennakoitu budjetti.",
+            "project.pilot": "Pilottihanke — ennakoidut luvut",
+
+            "director.label": "JOHTOMME",
+            "director.title": "Ophelie Rollet",
+            "director.subtitle": "Uskomus: jokainen elämä ansaitsee mahdollisuuden.",
+            "director.p1": "Espoir & Dignité -järjestön perustajana Ophelie Rollet edistää visiota, joka perustuu solidaarisuuteen, ihmisarvoon ja kaikkein haavoittuvimmassa asemassa olevien perheiden tukemiseen.",
+            "director.p2": "Auttamistyöhön liittyvien ensimmäisten kokemustensa myötä hän haluaa konkreettisesti parantaa leskien ja perheensä tuen menettäneiden lasten elinolosuhteita.",
+            "director.quote": "« Perheen auttaminen tänään antaa sille mahdollisuuden rakentaa huomisen tulevaisuutta. »",
+            "director.role": "Johtaja",
+
+            "impact.label": "VAIKUTUKSEMME",
+            "impact.title": "Muutamme avun mahdollisuuksiksi.",
+            "impact.description": "Seuraamme jokaista toimintaa, jotta voimme mitata tuloksia ja kehittää ohjelmaamme jatkuvasti.",
+            "impact.widows": "tuettavaa leskeä",
+            "impact.children": "tuettavaa lasta",
+            "impact.expenses": "seuratuista menoista",
+            "impact.followup": "alkuperäistä seurantakuukautta",
+
+            "transparency.label": "TALOUDELLINEN LÄPINÄKYVYYS",
+            "transparency.title": "Mihin",
+            "transparency.titleHighlight": "lahjoituksesi käytetään?",
+            "transparency.description": "Jokaisen lahjoituksen tulee palvella konkreettista toimintaa. Esitämme tässä ensimmäisen kampanjamme ennakoidun budjetin jakautumisen.",
+            "transparency.total": "ENNAKOITU KOKONAISBUDJETTI",
+            "transparency.commitment": "Sitoumuksemme",
+            "transparency.commitmentText": "Haluamme julkaista säännöllisesti tietoja menojen ja toteutettujen toimien etenemisestä, jotta jokainen lahjoittaja voi ymmärtää varojen käytön.",
+
+            "transparency.food": "Ruoka-apu",
+            "transparency.foodDescription": "Perheiden välttämätön tuki",
+
+            "transparency.empowerment": "Leskien itsenäistyminen",
+            "transparency.empowermentDescription": "Tulonhankintaa tukevat toimet",
+
+            "transparency.education": "Koulutus ja tarvikkeet",
+            "transparency.educationDescription": "Koulutarvikkeet ja tuki",
+
+            "transparency.local": "Paikallisten rakenteiden tuki",
+            "transparency.localDescription": "Koulut ja paikalliset kumppanit",
+
+            "transparency.logistics": "Hallinto ja logistiikka",
+            "transparency.logisticsDescription": "Hankkeen organisointi ja seuranta",
+
+            "transparency.communication": "Viestintä",
+            "transparency.communicationDescription": "Tiedotus ja tietoisuuden lisääminen",
+
+            "transparency.totalLabel": "YHTEENSÄ",
+
+            "transparency.note": "Tämä jakautuminen vastaa ensimmäisen kampanjan ennakoitua budjettia. Summat voivat muuttua kentällä tunnistettujen tarpeiden ja tosiasiallisesti saatujen rahoitusten mukaan.",
+
+            "don.label": "TOIMI KANSSAMME",
+            "don.title": "Tukesi voi antaa uuden mahdollisuuden.",
+            "don.description": "Jokainen lahjoitus osallistuu apu-, koulutus- ja itsenäistymisohjelmiemme rahoittamiseen.",
+            "don.button": "Haluan tukea hanketta",
+            "don.note": "Todelliset lahjoitusmenettelyt julkaistaan, kun varainhankintajärjestelmä on virallisesti perustettu.",
+
+            "contact.label": "YHTEYSTIEDOT",
+            "contact.title": "Kysyttävää tehtävästämme?",
+            "contact.description": "Haluatko ryhtyä kumppaniksi, vapaaehtoiseksi tai tukea ohjelmaamme?",
+            "contact.name": "Nimi",
+            "contact.namePlaceholder": "Nimesi",
+            "contact.email": "Sähköpostiosoite",
+            "contact.emailPlaceholder": "sinä@example.com",
+            "contact.message": "Viestisi",
+            "contact.messagePlaceholder": "Viestisi...",
+            "contact.send": "Lähetä viesti",
+
+            "footer.tagline": "Suojella. Tukea. Vahvistaa.",
+            "footer.navigation": "Navigointi",
+            "footer.support": "Tue meitä",
+            "footer.donate": "Lahjoita",
+            "footer.partner": "Ryhdy kumppaniksi",
+            "footer.copyright": "© 2026 Espoir & Dignité — Kaikki oikeudet pidätetään.",
+            "footer.disclaimer": "Esittelyhanke — ennakoidut budjettitiedot."
+
+        },
+
+
+        /* =================================================
+           ANGLAIS
+           ================================================= */
+
+        en: {
+
+            "nav.home": "Home",
+            "nav.mission": "Our mission",
+            "nav.actions": "Our actions",
+            "nav.impact": "Our impact",
+            "nav.director": "The director",
+            "nav.transparency": "Transparency",
+            "nav.donate": "Donate",
+
+            "hero.tag": "ACT • PROTECT • EMPOWER",
+            "hero.title": "Restoring hope,",
+            "hero.titleHighlight": "rebuilding lives.",
+            "hero.description": "We support widows and vulnerable children by providing practical assistance, access to education and the means to build a more stable future.",
+            "hero.support": "Support our mission",
+            "hero.mission": "Discover our mission",
+            "hero.trustTitle": "An approach founded on dignity",
+            "hero.trustText": "Protect today. Build tomorrow.",
+            "hero.campaign": "OUR FIRST CAMPAIGN",
+            "hero.project": "Pilot project",
+            "hero.budget": "Projected budget",
+            "hero.widows": "Widows",
+            "hero.children": "Children",
+            "hero.months": "Months",
+            "hero.discover": "Discover the project",
+            "hero.scroll": "Discover",
+
+            "stats.widows": "widows supported",
+            "stats.children": "vulnerable children",
+            "stats.program": "months of programme",
+            "stats.budget": "projected budget",
+
+            "mission.label": "OUR MISSION",
+            "mission.title": "Losing a loved one should not condemn a family to hardship.",
+            "mission.p1": "In many disadvantaged communities, the loss of a spouse or parent can push an entire family into poverty.",
+            "mission.p2": "Espoir & Dignité supports widows and vulnerable children by addressing essential needs while building sustainable solutions.",
+            "mission.p3": "Our approach is based on four principles:",
+            "mission.principles": "protect, support, empower and remain accountable.",
+
+            "actions.label": "OUR ACTIONS",
+            "actions.title": "Practical support designed to last.",
+            "actions.description": "Our programme combines immediate assistance with support towards greater independence.",
+
+            "actions.food.title": "Food assistance",
+            "actions.food.text": "Distribution of food packages to families identified as particularly vulnerable.",
+
+            "actions.education.title": "Education",
+            "actions.education.text": "School supplies and support for the education of orphaned and vulnerable children.",
+
+            "actions.empowerment.title": "Empowerment",
+            "actions.empowerment.text": "Training and support to help widows launch small income-generating activities.",
+
+            "actions.protection.title": "Child protection",
+            "actions.protection.text": "Identification of vulnerable situations and referral to appropriate services.",
+
+            "actions.support": "Support this action →",
+
+            "project.label": "OUR PILOT PROJECT",
+            "project.title": "Hope for Widows and Orphans",
+            "project.description": "Our first campaign aims to support vulnerable families during an initial six-month period.",
+            "project.widows": "targeted widows",
+            "project.children": "children supported",
+            "project.duration": "initial duration",
+            "project.budgetButton": "View the budget",
+            "project.objective": "PROJECT OBJECTIVE",
+            "project.budgetDescription": "Projected budget for the first phase of the programme.",
+            "project.pilot": "Pilot project — projected figures",
+
+            "director.label": "OUR LEADERSHIP",
+            "director.title": "Ophelie Rollet",
+            "director.subtitle": "A belief: every life deserves a chance.",
+            "director.p1": "As the founder of Espoir & Dignité, Ophelie Rollet carries a vision based on solidarity, dignity and support for the most vulnerable families.",
+            "director.p2": "Following her early experiences helping people in difficulty, she wants to contribute concretely to improving the living conditions of widows and children without family support.",
+            "director.quote": "« Helping a family today gives it a chance to build its future tomorrow. »",
+            "director.role": "Director",
+
+            "impact.label": "OUR IMPACT",
+            "impact.title": "Turning assistance into opportunities.",
+            "impact.description": "Every action is monitored to measure results and progressively improve our programme.",
+            "impact.widows": "widows supported",
+            "impact.children": "children supported",
+            "impact.expenses": "of expenses tracked",
+            "impact.followup": "of initial monitoring",
+
+            "transparency.label": "FINANCIAL TRANSPARENCY",
+            "transparency.title": "Where does",
+            "transparency.titleHighlight": "your donation go?",
+            "transparency.description": "Every contribution should support a concrete action. Here we present the projected allocation of the budget for our first campaign.",
+            "transparency.total": "PROJECTED TOTAL BUDGET",
+            "transparency.commitment": "Our commitment",
+            "transparency.commitmentText": "We aim to regularly publish updates on expenses and completed activities so that every donor can understand how funds are being used.",
+
+            "transparency.food": "Food assistance",
+            "transparency.foodDescription": "Essential support for families",
+
+            "transparency.empowerment": "Women’s empowerment",
+            "transparency.empowermentDescription": "Income-generating activities",
+
+            "transparency.education": "Education & supplies",
+            "transparency.educationDescription": "School materials and support",
+
+            "transparency.local": "Support for local organisations",
+            "transparency.localDescription": "Schools and field partners",
+
+            "transparency.logistics": "Administration & logistics",
+            "transparency.logisticsDescription": "Project organisation and monitoring",
+
+            "transparency.communication": "Communication",
+            "transparency.communicationDescription": "Awareness and information",
+
+            "transparency.totalLabel": "TOTAL",
+
+            "transparency.note": "This allocation corresponds to the projected budget for the first campaign. Amounts may change according to needs identified in the field and funding actually received.",
+
+            "don.label": "ACT WITH US",
+            "don.title": "Your support can become a new opportunity.",
+            "don.description": "Every contribution helps fund our assistance, education and empowerment programmes.",
+            "don.button": "I want to support the project",
+            "don.note": "Actual donation procedures will be published once the fundraising system has been officially configured.",
+
+            "contact.label": "CONTACT",
+            "contact.title": "Have a question about our mission?",
+            "contact.description": "Would you like to become a partner, volunteer or support our programme?",
+            "contact.name": "Name",
+            "contact.namePlaceholder": "Your name",
+            "contact.email": "Email address",
+            "contact.emailPlaceholder": "you@example.com",
+            "contact.message": "Your message",
+            "contact.messagePlaceholder": "Your message...",
+            "contact.send": "Send message",
+
+            "footer.tagline": "Protect. Support. Empower.",
+            "footer.navigation": "Navigation",
+            "footer.support": "Support us",
+            "footer.donate": "Donate",
+            "footer.partner": "Become a partner",
+            "footer.copyright": "© 2026 Espoir & Dignité — All rights reserved.",
+            "footer.disclaimer": "Presentation project — projected budget information."
+
+        }
+
+    };
+
+
+    /* =====================================================
+       TRADUCTION
+       ===================================================== */
+
+    function getTranslation(key) {
+
+        if (
+            translations[currentLanguage] &&
+            Object.prototype.hasOwnProperty.call(
+                translations[currentLanguage],
+                key
+            )
+        ) {
+            return translations[currentLanguage][key];
+        }
+
+        if (
+            translations.fr &&
+            Object.prototype.hasOwnProperty.call(
+                translations.fr,
+                key
+            )
+        ) {
+            return translations.fr[key];
+        }
+
+        return "";
+    }
+
+
+    /* =====================================================
+       FONCTION TEXTE
+       ===================================================== */
+
+    function setText(selector, key) {
+
+        const element =
+            document.querySelector(selector);
+
+        if (!element) {
+            return;
+        }
+
+        element.textContent =
+            getTranslation(key);
+    }
+
+
+    /* =====================================================
+       NAVIGATION
+       ===================================================== */
+
+    function translateNavigation() {
+
+        const links =
+            document.querySelectorAll("#navMenu a");
+
+        const keys = [
+            "nav.home",
+            "nav.mission",
+            "nav.actions",
+            "nav.impact",
+            "nav.director",
+            "nav.transparency",
+            "nav.donate"
+        ];
+
+        links.forEach((link, index) => {
+
+            if (keys[index]) {
+                link.textContent =
+                    getTranslation(keys[index]);
+            }
+
+        });
+
+    }
+
+
+    /* =====================================================
+       HERO
+       ===================================================== */
+
+    function translateHero() {
+
+        setText(".hero-tag", "hero.tag");
+
+        setText(
+            ".hero-description",
+            "hero.description"
+        );
+
+        setText(
+            ".hero-buttons .hero-btn",
+            "hero.support"
+        );
+
+        setText(
+            ".hero-buttons .btn-outline",
+            "hero.mission"
+        );
+
+
+        const heroTitle =
+            document.querySelector(".hero h1");
+
+        if (heroTitle) {
+
+            const highlight =
+                heroTitle.querySelector("span");
+
+            if (highlight) {
+
+                heroTitle.childNodes.forEach(node => {
+
+                    if (
+                        node.nodeType === Node.TEXT_NODE &&
+                        node.textContent.trim()
+                    ) {
+                        node.textContent =
+                            getTranslation("hero.title") + " ";
+                    }
+
+                });
+
+                highlight.textContent =
+                    getTranslation(
+                        "hero.titleHighlight"
+                    );
+
+            } else {
+
+                heroTitle.textContent =
+                    getTranslation("hero.title") +
+                    " " +
+                    getTranslation(
+                        "hero.titleHighlight"
+                    );
+
+            }
+
+        }
+
+
+        const trustStrong =
+            document.querySelector(
+                ".hero-trust strong"
+            );
+
+        const trustSpan =
+            document.querySelector(
+                ".hero-trust span"
+            );
+
+        if (trustStrong) {
+            trustStrong.textContent =
+                getTranslation(
+                    "hero.trustTitle"
+                );
+        }
+
+        if (trustSpan) {
+            trustSpan.textContent =
+                getTranslation(
+                    "hero.trustText"
+                );
+        }
+
+
+        setText(
+            ".hero-impact-card .impact-card-top > span",
+            "hero.campaign"
+        );
+
+        setText(
+            ".hero-impact-card .impact-status",
+            "hero.project"
+        );
+
+        setText(
+            ".hero-impact-card .impact-card-main p",
+            "hero.budget"
+        );
+
+        setText(
+            ".impact-mini-grid div:nth-child(1) span",
+            "hero.widows"
+        );
+
+        setText(
+            ".impact-mini-grid div:nth-child(2) span",
+            "hero.children"
+        );
+
+        setText(
+            ".impact-mini-grid div:nth-child(3) span",
+            "hero.months"
+        );
+
+        setText(
+            ".hero-impact-card .impact-link",
+            "hero.discover"
+        );
+
+    }
+
+
+    /* =====================================================
+       STATS
+       ===================================================== */
+
+    function translateStats() {
+
+        setText(
+            ".stats-grid .stat:nth-child(1) span",
+            "stats.widows"
+        );
+
+        setText(
+            ".stats-grid .stat:nth-child(2) span",
+            "stats.children"
+        );
+
+        setText(
+            ".stats-grid .stat:nth-child(3) span",
+            "stats.program"
+        );
+
+        setText(
+            ".stats-grid .stat:nth-child(4) span",
+            "stats.budget"
+        );
+
+    }
+
+
+    /* =====================================================
+       MISSION
+       ===================================================== */
+
+    function translateMission() {
+
+        setText(
+            "#mission .section-label",
+            "mission.label"
+        );
+
+        setText(
+            "#mission h2",
+            "mission.title"
+        );
+
+
+        const paragraphs =
+            document.querySelectorAll(
+                "#mission .mission-text p"
+            );
+
+
+        if (paragraphs[0]) {
+            paragraphs[0].textContent =
+                getTranslation("mission.p1");
+        }
+
+        if (paragraphs[1]) {
+            paragraphs[1].textContent =
+                getTranslation("mission.p2");
+        }
+
+        if (paragraphs[2]) {
+
+            paragraphs[2].innerHTML =
+                getTranslation("mission.p3") +
+                " <strong>" +
+                getTranslation("mission.principles") +
+                "</strong>";
+
+        }
+
+    }
+
+
+    /* =====================================================
+       ACTIONS
+       ===================================================== */
+
+    function translateActions() {
+
+        setText(
+            "#actions .section-label",
+            "actions.label"
+        );
+
+        setText(
+            "#actions .section-heading h2",
+            "actions.title"
+        );
+
+        setText(
+            "#actions .section-heading p",
+            "actions.description"
+        );
+
+
+        const cards =
+            document.querySelectorAll(
+                "#actions .action-card"
+            );
+
+
+        const data = [
+
+            [
+                "actions.food.title",
+                "actions.food.text"
+            ],
+
+            [
+                "actions.education.title",
+                "actions.education.text"
+            ],
+
+            [
+                "actions.empowerment.title",
+                "actions.empowerment.text"
+            ],
+
+            [
+                "actions.protection.title",
+                "actions.protection.text"
+            ]
+
+        ];
+
+
+        cards.forEach((card, index) => {
+
+            if (!data[index]) {
+                return;
+            }
+
+            const title =
+                card.querySelector("h3");
+
+            const paragraph =
+                card.querySelector("p");
+
+            const link =
+                card.querySelector("a");
+
+
+            if (title) {
+                title.textContent =
+                    getTranslation(data[index][0]);
+            }
+
+            if (paragraph) {
+                paragraph.textContent =
+                    getTranslation(data[index][1]);
+            }
+
+            if (link) {
+                link.textContent =
+                    getTranslation(
+                        "actions.support"
+                    );
+            }
+
+        });
+
+    }
+
+
+    /* =====================================================
+       PROJET
+       ===================================================== */
+
+    function translateProject() {
+
+        setText(
+            ".project-section .section-label",
+            "project.label"
+        );
+
+        setText(
+            ".project-content h2",
+            "project.title"
+        );
+
+        setText(
+            ".project-content > p",
+            "project.description"
+        );
+
+        setText(
+            ".project-list div:nth-child(1) p",
+            "project.widows"
+        );
+
+        setText(
+            ".project-list div:nth-child(2) p",
+            "project.children"
+        );
+
+        setText(
+            ".project-list div:nth-child(3) p",
+            "project.duration"
+        );
+
+        setText(
+            ".project-content .btn",
+            "project.budgetButton"
+        );
+
+        setText(
+            ".project-box > span",
+            "project.objective"
+        );
+
+        setText(
+            ".project-box > p",
+            "project.budgetDescription"
+        );
+
+        setText(
+            ".project-box small",
+            "project.pilot"
+        );
+
+    }
+
+
+    /* =====================================================
+       DIRECTRICE
+       ===================================================== */
+
+    function translateDirector() {
+
+        setText(
+            "#directrice .section-label",
+            "director.label"
+        );
+
+        setText(
+            "#directrice h2",
+            "director.title"
+        );
+
+        setText(
+            "#directrice h3",
+            "director.subtitle"
+        );
+
+
+        const paragraphs =
+            document.querySelectorAll(
+                "#directrice .founder-content > p"
+            );
+
+
+        if (paragraphs[0]) {
+            paragraphs[0].textContent =
+                getTranslation("director.p1");
+        }
+
+        if (paragraphs[1]) {
+            paragraphs[1].textContent =
+                getTranslation("director.p2");
+        }
+
+
+        setText(
+            "#directrice blockquote",
+            "director.quote"
+        );
+
+        setText(
+            ".photo-caption span",
+            "director.role"
+        );
+
+    }
+
+
+    /* =====================================================
+       IMPACT
+       ===================================================== */
+
+    function translateImpact() {
+
+        const section =
+            document.querySelector("#impact");
+
+        if (!section) {
+            return;
+        }
+
+
+        setText(
+            "#impact .section-label",
+            "impact.label"
+        );
+
+        setText(
+            "#impact h2",
+            "impact.title"
+        );
+
+        setText(
+            "#impact .section-heading p",
+            "impact.description"
+        );
+
+
+        const cards =
+            document.querySelectorAll(
+                ".section-dark .impact-card"
+            );
+
+
+        const keys = [
+            "impact.widows",
+            "impact.children",
+            "impact.expenses",
+            "impact.followup"
+        ];
+
+
+        cards.forEach((card, index) => {
+
+            const span =
+                card.querySelector("span");
+
+            if (
+                span &&
+                keys[index]
+            ) {
+                span.textContent =
+                    getTranslation(keys[index]);
+            }
+
+        });
+
+    }
+
+
+    /* =====================================================
+       TRANSPARENCE
+       ===================================================== */
+
+    function translateTransparency() {
+
+        const sections =
+            document.querySelectorAll(
+                "#transparence"
+            );
+
+
+        sections.forEach(section => {
+
+            const label =
+                section.querySelector(
+                    ".section-label, .section-eyebrow"
+                );
+
+            if (label) {
+                label.textContent =
+                    getTranslation(
+                        "transparency.label"
+                    );
+            }
+
+
+            const heading =
+                section.querySelector("h2");
+
+
+            if (heading) {
+
+                const span =
+                    heading.querySelector("span");
+
+
+                if (span) {
+
+                    heading.childNodes.forEach(node => {
+
+                        if (
+                            node.nodeType === Node.TEXT_NODE &&
+                            node.textContent.trim()
+                        ) {
+                            node.textContent =
+                                getTranslation(
+                                    "transparency.title"
+                                ) + " ";
+                        }
+
+                    });
+
+
+                    span.textContent =
+                        getTranslation(
+                            "transparency.titleHighlight"
+                        );
+
+                }
+
+            }
+
+
+            const paragraph =
+                section.querySelector(
+                    ".section-heading p, .budget-intro > p"
+                );
+
+
+            if (paragraph) {
+                paragraph.textContent =
+                    getTranslation(
+                        "transparency.description"
+                    );
+            }
+
+        });
+
+
+        const budgetItems =
+            document.querySelectorAll(
+                ".budget-item"
+            );
+
+
+        const budgetData = [
+
+            [
+                "transparency.food",
+                "transparency.foodDescription"
+            ],
+
+            [
+                "transparency.empowerment",
+                "transparency.empowermentDescription"
+            ],
+
+            [
+                "transparency.education",
+                "transparency.educationDescription"
+            ],
+
+            [
+                "transparency.local",
+                "transparency.localDescription"
+            ],
+
+            [
+                "transparency.logistics",
+                "transparency.logisticsDescription"
+            ],
+
+            [
+                "transparency.communication",
+                "transparency.communicationDescription"
+            ]
+
+        ];
+
+
+        budgetItems.forEach((item, index) => {
+
+            if (!budgetData[index]) {
+                return;
+            }
+
+
+            const title =
+                item.querySelector(
+                    ".budget-item-header strong"
+                );
+
+            const description =
+                item.querySelector(
+                    ".budget-item-header span"
+                );
+
+
+            if (title) {
+                title.textContent =
+                    getTranslation(
+                        budgetData[index][0]
+                    );
+            }
+
+            if (description) {
+                description.textContent =
+                    getTranslation(
+                        budgetData[index][1]
+                    );
+            }
+
+        });
+
+
+        setText(
+            ".budget-card-total span",
+            "transparency.totalLabel"
+        );
+
+
+        setText(
+            ".budget-disclaimer p",
+            "transparency.note"
+        );
+
+    }
+
+
+    /* =====================================================
+       DON
+       ===================================================== */
+
+    function translateDonation() {
+
+        setText(
+            "#don .section-label",
+            "don.label"
+        );
+
+        setText(
+            "#don h2",
+            "don.title"
+        );
+
+        setText(
+            "#don p",
+            "don.description"
+        );
+
+        setText(
+            "#don .btn-white",
+            "don.button"
+        );
+
+        setText(
+            "#don .don-note",
+            "don.note"
+        );
+
+    }
+
+
+    /* =====================================================
+       CONTACT
+       ===================================================== */
+
+    function translateContact() {
+
+        const section =
+            document.querySelector(
+                ".contact-section"
+            );
+
+        if (!section) {
+            return;
+        }
+
+
+        setText(
+            ".contact-section .section-label",
+            "contact.label"
+        );
+
+        setText(
+            ".contact-section h2",
+            "contact.title"
+        );
+
+        setText(
+            ".contact-section > .container > .contact-grid > div:first-child p",
+            "contact.description"
+        );
+
+        setText(
+            'label[for="name"]',
+            "contact.name"
+        );
+
+        setText(
+            'label[for="email"]',
+            "contact.email"
+        );
+
+        setText(
+            'label[for="message"]',
+            "contact.message"
+        );
+
+        setText(
+            ".contact-form button",
+            "contact.send"
+        );
+
+
+        const name =
+            document.getElementById("name");
+
+        const email =
+            document.getElementById("email");
+
+        const message =
+            document.getElementById("message");
+
+
+        if (name) {
+            name.placeholder =
+                getTranslation(
+                    "contact.namePlaceholder"
+                );
+        }
+
+        if (email) {
+            email.placeholder =
+                getTranslation(
+                    "contact.emailPlaceholder"
+                );
+        }
+
+        if (message) {
+            message.placeholder =
+                getTranslation(
+                    "contact.messagePlaceholder"
+                );
+        }
+
+    }
+
+
+    /* =====================================================
+       FOOTER
+       ===================================================== */
+
+    function translateFooter() {
+
+        setText(
+            ".footer-brand + p",
+            "footer.tagline"
+        );
+
+
+        const headings =
+            document.querySelectorAll(
+                ".footer-grid h4"
+            );
+
+
+        if (headings[0]) {
+            headings[0].textContent =
+                getTranslation(
+                    "footer.navigation"
+                );
+        }
+
+        if (headings[1]) {
+            headings[1].textContent =
+                getTranslation(
+                    "footer.support"
+                );
+        }
+
+
+        const supportLinks =
+            document.querySelectorAll(
+                ".footer-grid > div:nth-child(3) a"
+            );
+
+
+        if (supportLinks[0]) {
+            supportLinks[0].textContent =
+                getTranslation(
+                    "footer.donate"
+                );
+        }
+
+        if (supportLinks[1]) {
+            supportLinks[1].textContent =
+                getTranslation(
+                    "footer.partner"
+                );
+        }
+
+
+        const copyright =
+            document.querySelector(
+                ".footer-bottom p:first-child"
+            );
+
+        const disclaimer =
+            document.querySelector(
+                ".footer-bottom p:last-child"
+            );
+
+
+        if (copyright) {
+            copyright.textContent =
+                getTranslation(
+                    "footer.copyright"
+                );
+        }
+
+        if (disclaimer) {
+            disclaimer.textContent =
+                getTranslation(
+                    "footer.disclaimer"
+                );
+        }
+
+    }
+
+
+    /* =====================================================
+       TRADUIRE TOUT LE SITE
+       ===================================================== */
+
+    function translatePage() {
+
+        translateNavigation();
+        translateHero();
+        translateStats();
+        translateMission();
+        translateActions();
+        translateProject();
+        translateDirector();
+        translateImpact();
+        translateTransparency();
+        translateDonation();
+        translateContact();
+        translateFooter();
+
+    }
+
+
+    /* =====================================================
+       BOUTONS DE LANGUE
+       ===================================================== */
+
+    const languageButtons =
+        document.querySelectorAll(
+            ".lang-btn"
+        );
+
+
+    function updateLanguageButtons() {
+
+        languageButtons.forEach(button => {
+
+            const language =
+                button.getAttribute(
+                    "data-lang"
+                );
+
+
+            const active =
+                language === currentLanguage;
+
+
+            button.classList.toggle(
+                "active",
+                active
+            );
+
+
+            button.setAttribute(
+                "aria-pressed",
+                active ? "true" : "false"
+            );
+
+        });
+
+    }
+
+
+    languageButtons.forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                const selectedLanguage =
+                    button.getAttribute(
+                        "data-lang"
+                    );
+
+
+                if (
+                    !supportedLanguages.includes(
+                        selectedLanguage
+                    )
+                ) {
+                    return;
+                }
+
+
+                currentLanguage =
+                    selectedLanguage;
+
+
+                localStorage.setItem(
+                    "espoirDigniteLanguage",
+                    currentLanguage
+                );
+
+
+                document.documentElement.setAttribute(
+                    "lang",
+                    currentLanguage
+                );
+
+
+                updateLanguageButtons();
+                translatePage();
+
+            }
+        );
+
+    });
+
+
+    /* =====================================================
+       INITIALISATION LANGUE
+       ===================================================== */
+
+    document.documentElement.setAttribute(
+        "lang",
+        currentLanguage
+    );
+
+
+    updateLanguageButtons();
+    translatePage();
+
+
+    /* =====================================================
+       LIENS VERS CONTACT
+       ===================================================== */
+
+    document.querySelectorAll(
+        'a[href="#contact"]'
+    ).forEach(link => {
+
+        link.addEventListener(
+            "click",
+            event => {
+
+                const contact =
+                    document.querySelector(
+                        ".contact-section"
+                    );
+
+
+                if (!contact) {
+                    return;
+                }
+
+
+                event.preventDefault();
+
+
+                const header =
+                    document.querySelector(
+                        ".header"
+                    );
+
+
+                const offset =
+                    header
+                        ? header.offsetHeight
+                        : 0;
+
+
+                const position =
+                    contact.getBoundingClientRect().top +
+                    window.pageYOffset -
+                    offset;
+
+
+                window.scrollTo({
+
+                    top: position,
+
+                    behavior: "smooth"
+
+                });
+
+            }
+        );
+
+    });
+
+
+    /* =====================================================
+       FIN PARTIE 2/2
+       ===================================================== */
+
+});
