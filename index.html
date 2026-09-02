@@ -16,7 +16,13 @@
 
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
           rel="stylesheet">
-</head>
+<style>
+.language-switcher{display:flex;align-items:center;gap:6px;margin-left:18px;flex-shrink:0}
+.lang-btn{border:1px solid rgba(24,35,31,.12);background:rgba(255,255,255,.7);color:#18231f;padding:7px 9px;border-radius:999px;font-size:11px;font-weight:700;cursor:pointer;transition:.2s}
+.lang-btn:hover{transform:translateY(-1px);border-color:#b54a3a;color:#b54a3a}
+.lang-btn.active{background:#b54a3a;color:#fff;border-color:#b54a3a}
+@media(max-width:750px){.language-switcher{position:absolute;right:70px;margin:0;gap:3px}.lang-btn{padding:6px 7px;font-size:10px}}
+</style></head>
 
 <body>
 
@@ -1260,7 +1266,7 @@
                 </div>
 
                 <div class="budget-bar">
-                    <span style="width: 30%;"></span>
+                    <span style="width: 20%;"></span>
                 </div>
 
                 <small>
@@ -1300,7 +1306,7 @@
                 </div>
 
                 <small>
-                    30 % du budget
+                    20 % du budget
                 </small>
 
             </div>
